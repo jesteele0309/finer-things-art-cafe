@@ -1,0 +1,215 @@
+{
+  "gameType": "Roll-a-Portrait",
+  "source": "Metropolitan Museum of Art",
+  "generated": "2026-01-27T10:00:00",
+  "totalArtworks": 7,
+  "features": [
+    {
+      "feature": "HEAD",
+      "artwork": {
+        "id": 436535,
+        "title": "Young Woman with a Water Pitcher",
+        "artist": {
+          "name": "Johannes Vermeer",
+          "nationality": "Dutch",
+          "lifespan": {
+            "begin": "1632",
+            "end": "1675"
+          }
+        },
+        "date": "ca. 1662",
+        "medium": "Oil on canvas",
+        "dimensions": "18 x 16 in. (45.7 x 40.6 cm)",
+        "culture": "Dutch",
+        "images": {
+          "primary": "https://images.metmuseum.org/CRDImages/ep/original/DP146072.jpg",
+          "primarySmall": "https://images.metmuseum.org/CRDImages/ep/web-large/DP146072.jpg",
+          "additional": []
+        },
+        "rights": {
+          "isPublicDomain": true,
+          "creditLine": "Marquand Collection, Gift of Henry G. Marquand, 1889"
+        },
+        "metUrl": "https://www.metmuseum.org/art/collection/search/436535"
+      }
+    },
+    {
+      "feature": "EYES",
+      "artwork": {
+        "id": 437853,
+        "title": "Madame X (Madame Pierre Gautreau)",
+        "artist": {
+          "name": "John Singer Sargent",
+          "nationality": "American",
+          "lifespan": {
+            "begin": "1856",
+            "end": "1925"
+          }
+        },
+        "date": "1883\u201384",
+        "medium": "Oil on canvas",
+        "dimensions": "82 1/8 x 43 1/4 in. (208.6 x 109.9 cm)",
+        "culture": "American",
+        "images": {
+          "primary": "https://images.metmuseum.org/CRDImages/am/original/DP228177.jpg",
+          "primarySmall": "https://images.metmuseum.org/CRDImages/am/web-large/DP228177.jpg",
+          "additional": []
+        },
+        "rights": {
+          "isPublicDomain": true,
+          "creditLine": "Arthur Hoppock Hearn Fund, 1916"
+        },
+        "metUrl": "https://www.metmuseum.org/art/collection/search/437853"
+      }
+    },
+    {
+      "feature": "NOSE",
+      "artwork": {
+        "id": 436528,
+        "title": "Self-Portrait with a Straw Hat",
+        "artist": {
+          "name": "Vincent van Gogh",
+          "nationality": "Dutch",
+          "lifespan": {
+            "begin": "1853",
+            "end": "1890"
+          }
+        },
+        "date": "1887",
+        "medium": "Oil on canvas",
+        "dimensions": "16 x 12 3/4 in. (40.6 x 32.4 cm)",
+        "culture": "Dutch",
+        "images": {
+          "primary": "https://images.metmuseum.org/CRDImages/ep/original/DT1502.jpg",
+          "primarySmall": "https://images.metmuseum.org/CRDImages/ep/web-large/DT1502.jpg",
+          "additional": []
+        },
+        "rights": {
+          "isPublicDomain": true,
+          "creditLine": "Bequest of Miss Adelaide Milton de Groot, 1967"
+        },
+        "metUrl": "https://www.metmuseum.org/art/collection/search/436528"
+      }
+    },
+    {
+      "feature": "MOUTH",
+      "artwork": {
+        "id": 435809,
+        "title": "The Death of Socrates",
+        "artist": {
+          "name": "Jacques-Louis David",
+          "nationality": "French",
+          "lifespan": {
+            "begin": "1748",
+            "end": "1825"
+          }
+        },
+        "date": "1787",
+        "medium": "Oil on canvas",
+        "dimensions": "51 x 77 1/4 in. (129.5 x 196.2 cm)",
+        "culture": "French",
+        "images": {
+          "primary": "https://images.metmuseum.org/CRDImages/ep/original/DP-13139-001.jpg",
+          "primarySmall": "https://images.metmuseum.org/CRDImages/ep/web-large/DP-13139-001.jpg",
+          "additional": []
+        },
+        "rights": {
+          "isPublicDomain": true,
+          "creditLine": "Catharine Lorillard Wolfe Collection, Wolfe Fund, 1931"
+        },
+        "metUrl": "https://www.metmuseum.org/art/collection/search/435809"
+      }
+    },
+    {
+      "feature": "EARS",
+      "artwork": {
+        "id": 437877,
+        "title": "Portrait of a Woman",
+        "artist": {
+          "name": "Rembrandt van Rijn",
+          "nationality": "Dutch",
+          "lifespan": {
+            "begin": "1606",
+            "end": "1669"
+          }
+        },
+        "date": "1632",
+        "medium": "Oil on canvas",
+        "dimensions": "44 3/8 x 35 3/4 in. (112.7 x 90.8 cm)",
+        "culture": "Dutch",
+        "images": {
+          "primary": "https://images.metmuseum.org/CRDImages/ep/original/DP145933.jpg",
+          "primarySmall": "https://images.metmuseum.org/CRDImages/ep/web-large/DP145933.jpg",
+          "additional": []
+        },
+        "rights": {
+          "isPublicDomain": true,
+          "creditLine": "Bequest of Benjamin Altman, 1913"
+        },
+        "metUrl": "https://www.metmuseum.org/art/collection/search/437877"
+      }
+    },
+    {
+      "feature": "HAIR",
+      "artwork": {
+        "id": 435883,
+        "title": "The Young Ladies of the Village",
+        "artist": {
+          "name": "Gustave Courbet",
+          "nationality": "French",
+          "lifespan": {
+            "begin": "1819",
+            "end": "1877"
+          }
+        },
+        "date": "1851\u201352",
+        "medium": "Oil on canvas",
+        "dimensions": "76 3/4 x 102 3/8 in. (194.9 x 261 cm)",
+        "culture": "French",
+        "images": {
+          "primary": "https://images.metmuseum.org/CRDImages/ep/original/DT227.jpg",
+          "primarySmall": "https://images.metmuseum.org/CRDImages/ep/web-large/DT227.jpg",
+          "additional": []
+        },
+        "rights": {
+          "isPublicDomain": true,
+          "creditLine": "Gift of Harry Payne Bingham, 1940"
+        },
+        "metUrl": "https://www.metmuseum.org/art/collection/search/435883"
+      }
+    },
+    {
+      "feature": "NECK",
+      "artwork": {
+        "id": 437394,
+        "title": "Portrait of a Man in a Red Cap",
+        "artist": {
+          "name": "Titian",
+          "nationality": "Italian",
+          "lifespan": {
+            "begin": "ca. 1488",
+            "end": "1576"
+          }
+        },
+        "date": "ca. 1516",
+        "medium": "Oil on canvas",
+        "dimensions": "32 1/2 x 28 in. (82.6 x 71.1 cm)",
+        "culture": "Italian",
+        "images": {
+          "primary": "https://images.metmuseum.org/CRDImages/ep/original/DP-13618-001.jpg",
+          "primarySmall": "https://images.metmuseum.org/CRDImages/ep/web-large/DP-13618-001.jpg",
+          "additional": []
+        },
+        "rights": {
+          "isPublicDomain": true,
+          "creditLine": "Bequest of Benjamin Altman, 1913"
+        },
+        "metUrl": "https://www.metmuseum.org/art/collection/search/437394"
+      }
+    }
+  ],
+  "cafeInfo": {
+    "name": "The Finer Things Art Café",
+    "tagline": "Where Art History Meets Everyday Wellness"
+  }
+}
