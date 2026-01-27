@@ -10,7 +10,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Georgia', serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -18,7 +18,7 @@
             padding: 20px;
             min-height: 100vh;
         }
-        
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -27,24 +27,61 @@
             padding: 40px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
-        
+
         header {
             text-align: center;
             margin-bottom: 40px;
         }
-        
+
         h1 {
             font-size: 3rem;
             color: #8B4513;
             margin-bottom: 10px;
         }
-        
+
         .tagline {
             font-size: 1.2rem;
             color: #666;
             font-style: italic;
         }
-        
+
+        .action-bar {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .roll-button {
+            background: #8B4513;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .roll-button:hover {
+            background: #654321;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(139, 69, 19, 0.4);
+        }
+
+        .roll-button:active {
+            transform: scale(0.98);
+        }
+
+        .roll-button.loading-btn {
+            background: #999;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .info-bar {
             background: #f5f5f5;
             padding: 20px;
@@ -52,27 +89,29 @@
             margin-bottom: 30px;
             text-align: center;
         }
-        
+
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin-top: 30px;
         }
-        
+
         .artwork-card {
             background: white;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
-        
+
         .artwork-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 40px rgba(0,0,0,0.2);
         }
-        
+
         .feature-badge {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -81,78 +120,106 @@
             font-size: 0.9rem;
             text-align: center;
         }
-        
+
+        .image-container {
+            position: relative;
+            height: 350px;
+            background: #eee;
+            overflow: hidden;
+        }
+
         .artwork-image {
             width: 100%;
-            height: 300px;
-            object-fit: cover;
+            height: 100%;
+            object-fit: contain;
+            transition: opacity 0.3s ease;
         }
-        
+
         .artwork-info {
             padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
-        
+
         .artwork-title {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: bold;
             color: #333;
             margin-bottom: 8px;
+            line-height: 1.3;
         }
-        
+
         .artist-name {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #666;
             font-style: italic;
             margin-bottom: 15px;
         }
-        
+
         .artwork-details {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #888;
-            line-height: 1.6;
+            line-height: 1.5;
+            margin-bottom: 15px;
         }
-        
+
         .met-link {
             display: inline-block;
-            margin-top: 15px;
+            margin-top: auto;
             padding: 10px 20px;
-            background: #8B4513;
-            color: white;
+            background: #f0f0f0;
+            color: #8B4513;
             text-decoration: none;
             border-radius: 5px;
-            transition: background 0.3s ease;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
         }
-        
+
         .met-link:hover {
-            background: #654321;
+            background: #8B4513;
+            color: white;
         }
-        
+
         footer {
             margin-top: 50px;
             text-align: center;
             color: #999;
             font-size: 0.9rem;
+            border-top: 1px solid #eee;
+            padding-top: 30px;
         }
-        
-        .loading {
+
+        .loading-overlay {
+            display: none;
             text-align: center;
             padding: 50px;
             font-size: 1.5rem;
             color: #667eea;
         }
-        
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .container {
-                padding: 20px;
-            }
-            
-            .gallery {
-                grid-template-columns: 1fr;
-            }
+            h1 { font-size: 2rem; }
+            .container { padding: 20px; }
+            .gallery { grid-template-columns: 1fr; }
+            .image-container { height: 300px; }
         }
     </style>
 </head>
@@ -162,77 +229,153 @@
             <h1>🎨 Roll-a-Portrait</h1>
             <p class="tagline">Where Art History Meets Everyday Wellness</p>
         </header>
-        
-        <div id="loading" class="loading">
-            Loading artworks...
+
+        <div class="action-bar">
+            <button id="rollButton" class="roll-button">
+                <span class="btn-text">🎲 Roll 7 Random Paintings</span>
+            </button>
         </div>
-        
-        <div id="content" style="display: none;">
+
+        <div id="loading" class="loading-overlay">
+            <p>🎨 Curating your collection from The Met...</p>
+            <p style="font-size: 0.9rem; margin-top: 10px; color: #999;">This may take a moment</p>
+        </div>
+
+        <div id="content">
             <div class="info-bar">
                 <h2>Metropolitan Museum of Art Collection</h2>
-                <p>7 random European paintings mapped to facial features</p>
+                <p>Interactive European Painting Viewer</p>
             </div>
-            
+
             <div id="gallery" class="gallery"></div>
         </div>
-        
+
         <footer>
-            <p>🎨 The Finer Things Art Café</p>
+            <p>🎨 The Finer Things Art Café | 2026</p>
             <p>Data provided by The Metropolitan Museum of Art Collection API</p>
             <p>Use these artworks as inspiration for your portrait drawings!</p>
         </footer>
     </div>
-    
+
     <script>
-        // Fetch and display the JSON data
-        async function loadArtworks() {
+        const API_BASE = 'https://collectionapi.metmuseum.org/public/collection/v1';
+        const FEATURES = ['HEAD', 'EYES', 'NOSE', 'MOUTH', 'EARS', 'HAIR', 'NECK'];
+        const DEPT_ID = 11; // European Paintings
+
+        const rollButton = document.getElementById('rollButton');
+        const gallery = document.getElementById('gallery');
+        const loading = document.getElementById('loading');
+        const btnText = rollButton.querySelector('.btn-text');
+
+        // Initial Load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedData = localStorage.getItem('lastPortraitSet');
+            if (savedData) {
+                renderArtworks(JSON.parse(savedData));
+            } else {
+                // Load defaults or roll new set
+                rollNewSet();
+            }
+        });
+
+        rollButton.addEventListener('click', rollNewSet);
+
+        async function rollNewSet() {
+            setLoading(true);
             try {
-                const response = await fetch('example_roll_a_portrait.json');
-                const data = await response.json();
-                
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('content').style.display = 'block';
-                
-                const gallery = document.getElementById('gallery');
-                
-                data.features.forEach(item => {
-                    const artwork = item.artwork;
-                    const card = document.createElement('div');
-                    card.className = 'artwork-card';
+                // 1. Get all object IDs for the department
+                const searchResponse = await fetch(`${API_BASE}/search?departmentId=${DEPT_ID}&hasImages=true&q=painting`);
+                const searchData = await searchResponse.json();
+                const allIDs = searchData.objectIDs;
+
+                if (!allIDs || allIDs.length === 0) throw new Error('No artworks found');
+
+                const selectedArtworks = [];
+                const usedIDs = new Set();
+
+                // 2. Fetch 7 random artworks with images
+                while (selectedArtworks.length < 7) {
+                    const randomID = allIDs[Math.floor(Math.random() * allIDs.length)];
                     
-                    card.innerHTML = `
-                        <div class="feature-badge">${item.feature}</div>
-                        <img src="${artwork.images.primarySmall}" 
-                             alt="${artwork.title}" 
-                             class="artwork-image"
-                             onerror="this.src='https://via.placeholder.com/300x300?text=Image+Not+Available'">
-                        <div class="artwork-info">
-                            <div class="artwork-title">${artwork.title}</div>
-                            <div class="artist-name">${artwork.artist.name}</div>
-                            <div class="artwork-details">
-                                <strong>Date:</strong> ${artwork.date}<br>
-                                <strong>Medium:</strong> ${artwork.medium}<br>
-                                ${artwork.culture ? `<strong>Culture:</strong> ${artwork.culture}<br>` : ''}
-                            </div>
-                            <a href="${artwork.metUrl}" target="_blank" class="met-link">
-                                View at The Met →
-                            </a>
-                        </div>
-                    `;
-                    
-                    gallery.appendChild(card);
-                });
+                    if (usedIDs.has(randomID)) continue;
+                    usedIDs.add(randomID);
+
+                    const artwork = await fetchArtworkDetails(randomID);
+                    if (artwork && artwork.primaryImageSmall) {
+                        selectedArtworks.push({
+                            feature: FEATURES[selectedArtworks.length],
+                            artwork: artwork
+                        });
+                    }
+                }
+
+                // 3. Save and Render
+                localStorage.setItem('lastPortraitSet', JSON.stringify(selectedArtworks));
+                renderArtworks(selectedArtworks);
+
             } catch (error) {
-                document.getElementById('loading').innerHTML = `
-                    <p style="color: #e74c3c;">Error loading artworks.</p>
-                    <p>Please ensure example_roll_a_portrait.json is in the same directory.</p>
-                `;
-                console.error('Error loading artworks:', error);
+                console.error('Roll failed:', error);
+                alert('Failed to fetch from Met API. Try again in a moment.');
+            } finally {
+                setLoading(false);
             }
         }
-        
-        // Load artworks when page loads
-        window.addEventListener('DOMContentLoaded', loadArtworks);
+
+        async function fetchArtworkDetails(id) {
+            try {
+                const response = await fetch(`${API_BASE}/objects/${id}`);
+                return await response.json();
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function renderArtworks(data) {
+            gallery.innerHTML = '';
+            data.forEach(item => {
+                const art = item.artwork;
+                const card = document.createElement('div');
+                card.className = 'artwork-card';
+                
+                card.innerHTML = `
+                    <div class="feature-badge">${item.feature}</div>
+                    <div class="image-container">
+                        <img src="${art.primaryImageSmall}" 
+                             alt="${art.title}" 
+                             class="artwork-image"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/400x500?text=Image+Unavailable'">
+                    </div>
+                    <div class="artwork-info">
+                        <div class="artwork-title">${art.title}</div>
+                        <div class="artist-name">${art.artistDisplayName || 'Unknown Artist'}</div>
+                        <div class="artwork-details">
+                            <strong>Date:</strong> ${art.objectDate || 'Unknown'}<br>
+                            <strong>Medium:</strong> ${art.medium || 'Unknown'}<br>
+                            ${art.culture ? `<strong>Culture:</strong> ${art.culture}` : ''}
+                        </div>
+                        <a href="${art.objectURL}" target="_blank" class="met-link">View at The Met →</a>
+                    </div>
+                `;
+                gallery.appendChild(card);
+            });
+        }
+
+        function setLoading(isLoading) {
+            if (isLoading) {
+                rollButton.classList.add('loading-btn');
+                rollButton.disabled = true;
+                btnText.innerHTML = '<span class="spinner"></span> Curating...';
+                loading.style.display = 'block';
+                gallery.style.opacity = '0.3';
+            } else {
+                rollButton.classList.remove('loading-btn');
+                rollButton.disabled = false;
+                btnText.innerHTML = '🎲 Roll 7 Random Paintings';
+                loading.style.display = 'none';
+                gallery.style.opacity = '1';
+            }
+        }
     </script>
 </body>
 </html>
