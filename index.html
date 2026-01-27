@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roll-a-Portrait | The Finer Things Art Café</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: #8B4513;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .info-bar {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .artwork-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .artwork-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .feature-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .artwork-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .artwork-info {
+            padding: 20px;
+        }
+        
+        .artwork-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .artist-name {
+            font-size: 1.1rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        
+        .artwork-details {
+            font-size: 0.9rem;
+            color: #888;
+            line-height: 1.6;
+        }
+        
+        .met-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #8B4513;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        
+        .met-link:hover {
+            background: #654321;
+        }
+        
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎨 Roll-a-Portrait</h1>
+            <p class="tagline">Where Art History Meets Everyday Wellness</p>
+        </header>
+        
+        <div id="loading" class="loading">
+            Loading artworks...
+        </div>
+        
+        <div id="content" style="display: none;">
+            <div class="info-bar">
+                <h2>Metropolitan Museum of Art Collection</h2>
+                <p>7 random European paintings mapped to facial features</p>
+            </div>
+            
+            <div id="gallery" class="gallery"></div>
+        </div>
+        
+        <footer>
+            <p>🎨 The Finer Things Art Café</p>
+            <p>Data provided by The Metropolitan Museum of Art Collection API</p>
+            <p>Use these artworks as inspiration for your portrait drawings!</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Fetch and display the JSON data
+        async function loadArtworks() {
+            try {
+                const response = await fetch('example_roll_a_portrait.json');
+                const data = await response.json();
+                
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                
+                const gallery = document.getElementById('gallery');
+                
+                data.features.forEach(item => {
+                    const artwork = item.artwork;
+                    const card = document.createElement('div');
+                    card.className = 'artwork-card';
+                    
+                    card.innerHTML = `
+                        <div class="feature-badge">${item.feature}</div>
+                        <img src="${artwork.images.primarySmall}" 
+                             alt="${artwork.title}" 
+                             class="artwork-image"
+                             onerror="this.src='https://via.placeholder.com/300x300?text=Image+Not+Available'">
+                        <div class="artwork-info">
+                            <div class="artwork-title">${artwork.title}</div>
+                            <div class="artist-name">${artwork.artist.name}</div>
+                            <div class="artwork-details">
+                                <strong>Date:</strong> ${artwork.date}<br>
+                                <strong>Medium:</strong> ${artwork.medium}<br>
+                                ${artwork.culture ? `<strong>Culture:</strong> ${artwork.culture}<br>` : ''}
+                            </div>
+                            <a href="${artwork.metUrl}" target="_blank" class="met-link">
+                                View at The Met →
+                            </a>
+                        </div>
+                    `;
+                    
+                    gallery.appendChild(card);
+                });
+            } catch (error) {
+                document.getElementById('loading').innerHTML = `
+                    <p style="color: #e74c3c;">Error loading artworks.</p>
+                    <p>Please ensure example_roll_a_portrait.json is in the same directory.</p>
+                `;
+                console.error('Error loading artworks:', error);
+            }
+        }
+        
+        // Load artworks when page loads
+        window.addEventListener('DOMContentLoaded', loadArtworks);
+    </script>
+</body>
+</html>
