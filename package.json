@@ -1,0 +1,1 @@
+{"name":"finer-things-innerworld","private":true,"type":"module","scripts":{"start":"node --env-file-if-exists=.env server.js","test":"node --test tests/*.test.js"},"engines":{"node":">=22"}}
