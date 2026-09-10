@@ -1,0 +1,6 @@
+/* Read-only readiness checks. Never print keys or upstream error bodies. */
+const e=process.env;
+if(e.VERIFY_MODELS_ON_START==='1'){
+ if(e.OPENAI_API_KEY){for(const model of [e.OPENAI_TEXT_MODEL||'gpt-5-mini',e.OPENAI_IMAGE_MODEL||'gpt-image-2']){try{const r=await fetch('https://api.openai.com/v1/models/'+encodeURIComponent(model),{headers:{Authorization:'Bearer '+e.OPENAI_API_KEY},signal:AbortSignal.timeout(12000)});console.log(JSON.stringify({check:'provider-model-access',model,status:r.status,accessible:r.ok}));await r.body?.cancel();}catch{console.log(JSON.stringify({check:'provider-model-access',model,status:'network-unavailable',accessible:false}));}}}
+ if(e.IW_GATEWAY_TOKEN&&e.SUPABASE_URL&&e.SUPABASE_PUBLISHABLE_KEY){try{const r=await fetch(e.SUPABASE_URL+'/functions/v1/innerworld-gateway',{method:'POST',headers:{apikey:e.SUPABASE_PUBLISHABLE_KEY,'Content-Type':'application/json','x-innerworld-gateway':e.IW_GATEWAY_TOKEN},body:JSON.stringify({action:'share',token:'0'.repeat(48)}),signal:AbortSignal.timeout(15000)});console.log(JSON.stringify({check:'gateway-authenticated-negative-share',status:r.status,expected:r.status===404}));await r.body?.cancel();}catch{console.log(JSON.stringify({check:'gateway-authenticated-negative-share',status:'network-unavailable',expected:false}));}}
+}
