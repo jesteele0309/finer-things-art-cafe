@@ -1,0 +1,21 @@
+name: Innerworld CI
+on:
+  push:
+    paths: ['innerworld/**','.github/workflows/innerworld-ci.yml']
+  pull_request:
+    paths: ['innerworld/**','.github/workflows/innerworld-ci.yml']
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: innerworld
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: innerworld/package-lock.json
+      - run: npm ci
+      - run: npm test
