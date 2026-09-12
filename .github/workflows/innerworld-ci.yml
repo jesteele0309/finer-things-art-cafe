@@ -31,7 +31,10 @@ jobs:
       - name: Verify the non-root production container starts
         run: |
           docker run --detach --name innerworld-smoke --publish 127.0.0.1:3000:3000 innerworld-release-check
-          curl --fail --silent --show-error --retry 10 --retry-delay 1 --retry-connrefused --max-time 20 http://127.0.0.1:3000/api/status | node -e 'let body="";process.stdin.on("data",d=>body+=d);process.stdin.on("end",()=>{const status=JSON.parse(body);if(status.release!==require("./innerworld/package.json").version)process.exit(1);console.log("Production container health verified");});'
+          curl --fail --silent --show-error --retry 10 --retry-delay 1 --retry-all-errors --retry-max-time 40 --max-time 5 --output "$RUNNER_TEMP/innerworld-health.json" http://127.0.0.1:3000/api/status
+          node -e 'const status=JSON.parse(require("fs").readFileSync(process.env.RUNNER_TEMP+"/innerworld-health.json","utf8"));if(status.release!==require("./innerworld/package.json").version)process.exit(1);console.log("Production container health verified");'
       - name: Clean up the container
         if: always()
-        run: docker rm --force innerworld-smoke || true
+        run: |
+          docker logs innerworld-smoke || true
+          docker rm --force innerworld-smoke || true
