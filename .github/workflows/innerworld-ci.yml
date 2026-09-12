@@ -19,3 +19,19 @@ jobs:
           cache-dependency-path: innerworld/package-lock.json
       - run: npm ci
       - run: npm run verify
+  container:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the production container and run its release tests
+        run: docker build --progress=plain --tag innerworld-release-check ./innerworld
+      - name: Verify the non-root production container starts
+        run: |
+          docker run --detach --name innerworld-smoke --publish 127.0.0.1:3000:3000 innerworld-release-check
+          curl --fail --silent --show-error --retry 10 --retry-delay 1 --retry-connrefused --max-time 20 http://127.0.0.1:3000/api/status | node -e 'let body="";process.stdin.on("data",d=>body+=d);process.stdin.on("end",()=>{const status=JSON.parse(body);if(status.release!==require("./innerworld/package.json").version)process.exit(1);console.log("Production container health verified");});'
+      - name: Clean up the container
+        if: always()
+        run: docker rm --force innerworld-smoke || true
