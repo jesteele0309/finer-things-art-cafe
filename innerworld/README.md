@@ -1,4 +1,4 @@
-# The Finer Things / INNERWORLD 0.7
+# The Finer Things / INNERWORLD 0.7.1
 
 Your inner life, made visible.
 
@@ -30,7 +30,7 @@ npm run verify
 npm start
 ```
 
-The release suite uses `tests/release-*.test.mjs`; older tests target retired interfaces and are not the release gate. All 33 release checks passed on September 12, 2026. HTTP tests run the actual Node server with external services mocked; they never charge a provider. The committed lockfile makes GitHub CI and Railway builds reproducible.
+The release suite uses `tests/release-*.test.mjs`; older tests target retired interfaces and are not the release gate. All 35 release checks passed on September 12, 2026. HTTP tests run the actual Node server with external services mocked; they never charge a provider. The committed lockfile makes GitHub CI and Railway builds reproducible.
 
 Sixteen live, non-billable API checks passed against production: authentication for three isolated accounts, free membership, astrology, restricted invitations and identical scene approval, outsider rejection, private image upload/retrieval, cloud archive and chapter preservation, stale-copy conflicts, anonymous art-card filtering/revocation, consent withdrawal and sign-out. These used synthetic data and a small uploaded PNG; they do not prove paid image generation or email delivery. The production browser also passed local onboarding, saved collection reload and chapter creation.
 
@@ -43,6 +43,8 @@ Eight transaction-rollback billing reconciliation checks passed using synthetic 
 Use the example variable names in `.env.example`, set through the deployment host. Never commit real secrets. OpenAI provider keys stay exclusively on Railway. The Supabase publishable key is intentionally public; no service-role key is sent to the browser. The gateway uses built-in Supabase server credentials, user validation and a database-held digest of the Railway gateway credential. The plaintext gateway credential is never in source.
 
 `VERIFY_MODELS_ON_START=1` performs read-only model access checks and one nonexistent-share negative gateway check, logging only model names/status codes. These checks do not demonstrate paid generation or billing availability.
+
+Release 0.7.1 distinguishes provider credit exhaustion, organization/project spending limits, usage limits and temporary throttling. The API returns only recognized error codes and safe messages; private logs record the same classification without prompts, credentials or raw provider error bodies. Temporary throttling preserves a valid numeric `Retry-After` header. Provider calls are not automatically retried. During the approved production acceptance run, reflection and image generation both returned HTTP 429; a healthy model-access check alone must not be treated as generation readiness. See the [official OpenAI error-code guidance](https://developers.openai.com/api/docs/guides/error-codes).
 
 Apply the versioned Supabase migration and deploy `supabase/functions/innerworld-gateway/index.ts` with its existing custom gateway authentication. `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY` and `VAPID_SUBJECT` enable the Railway push worker. Only the public key is returned to browsers. Notifications require an explicit user gesture and browser permission; the worker never sends journal text or artwork previews. iPhone/iPad users need the installed Home Screen web app. The service must remain awake for minute-based queue processing.
 
