@@ -1,1 +1,21 @@
-{"name":"the-finer-things-innerworld","version":"0.6.0","private":true,"type":"module","engines":{"node":">=22.16.0 <23"},"packageManager":"npm@10.9.2","scripts":{"start":"node scripts/provider-check.mjs && node server.mjs","test":"node --test tests/release-*.test.mjs","check":"node --check core.js && node --check client.js && node --check storage.js && node --check studio.js && node --check server.mjs","verify":"npm run check && npm test"},"dependencies":{"astronomy-engine":"2.1.19","tz-lookup":"6.1.25"}}
+{
+  "name": "the-finer-things-innerworld",
+  "version": "0.7.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.16.0 <23"
+  },
+  "packageManager": "npm@10.9.2",
+  "scripts": {
+    "start": "node scripts/provider-check.mjs && node server.mjs",
+    "test": "node --test tests/release-*.test.mjs",
+    "check": "node --check core.js && node --check client.js && node --check storage.js && node --check studio.js && node --check server.mjs && node --check notifications.js && node --check push.mjs",
+    "verify": "npm run check && npm test"
+  },
+  "dependencies": {
+    "astronomy-engine": "2.1.19",
+    "tz-lookup": "6.1.25",
+    "web-push": "3.6.7"
+  }
+}
