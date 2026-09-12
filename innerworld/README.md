@@ -1,4 +1,4 @@
-# The Finer Things / INNERWORLD 0.7.1
+# The Finer Things / INNERWORLD 0.7.2.1
 
 Your inner life, made visible.
 
@@ -17,7 +17,7 @@ This independent web application lives inside `innerworld/`. The existing Art Ca
 - Birthplace search, reviewable IANA timezone, explicit handling of nonexistent/repeated civil times, real geocentric astronomy positions, natal/transit aspects and Whole Sign houses. Ascendant/houses deliberately omitted above 66 degrees latitude.
 - Collaboration inbox plus opt-in Web Push: per-device preferences, timezone-aware daily reminders, generic private previews, durable delivery leases/retries and expired-subscription removal. Device delivery still needs acceptance after browser opt-in.
 - Cross-tab authentication refresh coordination, one retry after a rejected token, and actionable expired sign-in-link messages.
-- Durable server-controlled free/member usage limits with duplicate-request rejection. Server membership check protects high-resolution requests.
+- Durable server-controlled free/member usage limits with duplicate-request rejection. Confirmed provider rejections restore the daily allowance exactly once; successful and uncertain outcomes retain their reservation. Server membership check protects high-resolution requests.
 
 ## Run and verify
 
@@ -30,7 +30,7 @@ npm run verify
 npm start
 ```
 
-The release suite uses `tests/release-*.test.mjs`; older tests target retired interfaces and are not the release gate. All 35 release checks passed on September 12, 2026. HTTP tests run the actual Node server with external services mocked; they never charge a provider. The committed lockfile makes GitHub CI and Railway builds reproducible.
+The release suite uses `tests/release-*.test.mjs`; older tests target retired interfaces and are not the release gate. All 38 release checks passed on September 12, 2026. HTTP tests run the actual Node server with external services mocked; they never charge a provider. The committed lockfile makes GitHub CI and Railway builds reproducible.
 
 Sixteen live, non-billable API checks passed against production: authentication for three isolated accounts, free membership, astrology, restricted invitations and identical scene approval, outsider rejection, private image upload/retrieval, cloud archive and chapter preservation, stale-copy conflicts, anonymous art-card filtering/revocation, consent withdrawal and sign-out. These used synthetic data and a small uploaded PNG; they do not prove paid image generation or email delivery. The production browser also passed local onboarding, saved collection reload and chapter creation.
 
@@ -72,3 +72,9 @@ Nominatim search is manual, cached and limited to approximately one request/seco
 - https://github.com/cosinekitty/astronomy
 - https://supabase.com/docs/guides/database/postgres/row-level-security
 - https://operations.osmfoundation.org/policies/nominatim/
+
+## September 12 production remediation
+
+The 0.7.1 repair was published and deployed successfully, removing the earlier publishing blocker. Its production diagnostic confirmed OpenAI `credit_balance_exhausted`; do not repeat paid requests until the API organization is funded. The 0.7.2 follow-up restores allowance for confirmed provider rejections while retaining duplicate request records. Its database migration and gateway version 5 are applied; see `docs/PRODUCTION_REMEDIATION.md` for deployment evidence and remaining activation gates.
+
+Both external INNERWORLD Payment Links are paused, and the obsolete Railway webhook endpoint is disabled. Existing product and USD 12/month and USD 120/year prices are preserved. Stripe Sync still points to a different test account with no synced prices. Reactivate links only after live synchronization, customer portal and billing lifecycle acceptance succeed.

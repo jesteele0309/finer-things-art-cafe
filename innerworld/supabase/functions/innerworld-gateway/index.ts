@@ -32,6 +32,10 @@ Deno.serve(async(req:Request)=>{
    if(!['image','reflection'].includes(b.kind)||!uuid(b.requestId))return json(400,{error:'Invalid usage request.'});
    const q=await rpc('iw_reserve_request',{p_uid:user.id,p_kind:b.kind,p_request:b.requestId});if(!q?.allowed)return json(q?.duplicate?409:429,{error:q?.duplicate?'This request was already submitted. Check the result before retrying.':'Your daily request limit has been reached.',...q});return json(200,q);
   }
+  if(b.action==='quota_release'){
+   if(!['image','reflection'].includes(b.kind)||!uuid(b.requestId))return json(400,{error:'Invalid usage request.'});
+   return json(200,{released:await rpc('iw_release_rejected_request',{p_uid:user.id,p_kind:b.kind,p_request:b.requestId})});
+  }
   if(!uuid(b.spaceId))return json(400,{error:'Invalid space.'});
   if(b.action==='shared_image'){
    if(!uuid(b.pieceId))return json(400,{error:'Invalid artwork.'});
