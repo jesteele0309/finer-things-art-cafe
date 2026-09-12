@@ -1,0 +1,10 @@
+.git
+node_modules
+.env
+.env.*
+!.env.example
+.private
+test-results
+__pycache__
+*.pyc
+supabase/.temp

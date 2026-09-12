@@ -78,3 +78,7 @@ These expansion milestones retain their researched scope. Physical manufacturing
 ## Security review
 
 The new quota-release RPC has a fixed empty search path, denies anon/authenticated execution and is callable only by the trusted server. Its gateway action validates the signed-in user before supplying the owner ID. The advisor did not flag it. Remaining existing findings include Stripe-managed function search paths, legacy Art Cafe foreign-table exposure, authenticated API discoverability and disabled leaked-password checks; do not report the entire project as clean. [Supabase advisor guidance](https://supabase.com/docs/guides/database/database-linter).
+
+## Build recovery
+
+Two 0.7.2 Railpack builds failed while fetching `library/alpine:latest` from Docker Hub (network and TLS timeouts). GitHub CI passed. The application build now uses an explicit Dockerfile and the official Node 22 Bookworm slim image mirrored in Amazon ECR, pinned to a verified manifest digest. The Dockerfile runs npm ci and all release checks before producing the runnable image. Runtime secrets are supplied by Railway; they are not build arguments. The container runs as the non-root node user. [Railway Dockerfile support](https://docs.railway.com/builds/dockerfiles) and [official image gallery](https://gallery.ecr.aws/docker/library/node).
