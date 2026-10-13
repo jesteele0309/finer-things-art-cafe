@@ -8,7 +8,9 @@ Deno.serve(async(req:Request)=>{
  try{
   const supplied=req.headers.get('x-innerworld-gateway')||'';
   if(supplied.length<40||supplied.length>256)return json(401,{error:'Unauthorized gateway.'});
-  const url=Deno.env.get('SUPABASE_URL')!,service=Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,anon=Deno.env.get('SUPABASE_ANON_KEY')!;
+  // IW_SERVICE_ROLE_KEY (the legacy service_role JWT, set as a function secret) avoids PGRST303 rejections of the platform-minted
+  // token behind the default sb_secret key; without it the default key is used as before.
+  const url=Deno.env.get('SUPABASE_URL')!,service=Deno.env.get('IW_SERVICE_ROLE_KEY')||Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,anon=Deno.env.get('SUPABASE_ANON_KEY')!;
   const admin=createClient(url,service,{auth:{persistSession:false,autoRefreshToken:false}});
   const hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(supplied)))].map(x=>x.toString(16).padStart(2,'0')).join('');
   const allowed=await admin.rpc('iw_gateway_auth',{p_hash:hash});if(allowed.error||allowed.data!==true)return json(401,{error:'Unauthorized gateway.'});
