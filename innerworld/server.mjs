@@ -5,7 +5,7 @@ import {fileURLToPath} from 'node:url';
 import {calculateChart} from './astrology.mjs';
 import {createPushWorker} from './push.mjs';
 const root=dirname(fileURLToPath(import.meta.url));
-const files=['index.html','core.js','storage.js','client.js','notifications.js','studio.js','style.css','sw.js','icon.svg','manifest.webmanifest'];
+const files=['index.html','canonical.js','core.js','storage.js','client.js','notifications.js','studio.js','style.css','sw.js','icon.svg','manifest.webmanifest'];
 const mime={html:'text/html; charset=utf-8',js:'text/javascript; charset=utf-8',css:'text/css; charset=utf-8',svg:'image/svg+xml',webmanifest:'application/manifest+json'};
 const error=(status,message)=>Object.assign(Error(message),{status});
 const providerMessages={
